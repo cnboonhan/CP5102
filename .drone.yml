@@ -10,7 +10,7 @@ steps:
     image: pelotech/drone-helm3
     settings:
       mode: lint
-      chart: ./keycloak
+      chart: ./deploy
 
   - name: test
     image: busybox
@@ -34,7 +34,7 @@ steps:
     image: pelotech/drone-helm3
     settings:
       mode: upgrade
-      chart: ./keycloak
+      chart: ./deploy
       release: deploy-dev
       skip_tls_verify: true
     environment:
@@ -60,7 +60,7 @@ steps:
     image: pelotech/drone-helm3
     settings:
       mode: upgrade
-      chart: ./keycloak
+      chart: ./deploy
       release: deploy-prod
       skip_tls_verify: true
     environment:
