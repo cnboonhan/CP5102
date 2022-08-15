@@ -1,9 +1,0 @@
-apiVersion: v2
-appVersion: 18.0.2
-description: Hello World Configuration for Testing Deployment
-keywords:
-- hello-world
-maintainers:
-- name: Charayaphan Nakorn Boon Han
-name: conf-hello-world
-version: 1.0.0
