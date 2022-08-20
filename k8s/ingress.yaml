@@ -1,0 +1,21 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cafe-ingress
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - cp5102.nus.edu.sg
+  rules:
+    - host: cp5102.nus.edu.sg
+      http:
+        paths:
+          - path: /coffee
+            pathType: Prefix
+            backend:
+              service:
+                name: coffee-svc
+                port:
+                  number: 80

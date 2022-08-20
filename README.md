@@ -20,7 +20,7 @@ skaffold dev
 
 ## TODO
 ```
-# Add ingress, DB and Authentication
+# Add DB and Authentication
 # Assume vulnerable K8S configuration
 # Implement scans in test phase
 # Detect Vulnerabilities
