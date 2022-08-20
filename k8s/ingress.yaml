@@ -7,9 +7,9 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - cp5102.nus.edu.sg
+        - "*.loca.lt"
   rules:
-    - host: cp5102.nus.edu.sg
+    - host: "*.loca.lt"
       http:
         paths:
           - path: /coffee
@@ -19,3 +19,4 @@ spec:
                 name: coffee-svc
                 port:
                   number: 80
+

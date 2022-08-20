@@ -14,8 +14,9 @@ minikube addons enable ingress
 skaffold config set --global local-cluster true
 eval $(minikube -p dev docker-env)
 
-cd microservices
 skaffold dev
+
+lt --port 443
 ```
 
 ## TODO
