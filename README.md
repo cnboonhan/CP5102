@@ -16,7 +16,8 @@ eval $(minikube -p dev docker-env)
 
 skaffold dev
 
-lt --port 443
+lt -p 8080 --print-requests
+kubectl port-forward -n ingress-nginx services/ingress-nginx-controller 8080:80
 ```
 
 ## TODO
