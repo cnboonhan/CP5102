@@ -10,6 +10,7 @@ curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-
 sudo install minikube-linux-amd64 /usr/local/bin/minikube
 
 minikube start --profile dev
+minikube profile dev
 minikube addons enable ingress
 skaffold config set --global local-cluster true
 eval $(minikube -p dev docker-env)
