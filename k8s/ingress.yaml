@@ -16,3 +16,26 @@ spec:
                 name: coffee-svc
                 port:
                   number: 80
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: keycloak-ingress
+  annotations:
+    # Disabling CSP temporarily to prevent frame errors
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_headers "Content-Security-Policy: ";
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: "*.loca.lt"
+      http:
+        paths:
+          - path: /auth
+            pathType: Prefix
+            backend:
+              service:
+                name: keycloak
+                port:
+                  number: 8080
