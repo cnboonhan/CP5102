@@ -1,13 +1,11 @@
 # CP5102
 
 ```
-curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && \
-sudo install skaffold /usr/local/bin
+# Install skaffold, kubectl and minikube binaries
+# Optiional, set up Wiregard / Tailscale for extended access
 
-curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-
-curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-sudo install minikube-linux-amd64 /usr/local/bin/minikube
+# For privileged port-forwarding
+sudo setcap CAP_NET_BIND_SERVICE=+eip /usr/local/bin/kubectl
 
 minikube start --profile dev
 minikube profile dev
@@ -17,8 +15,7 @@ eval $(minikube -p dev docker-env)
 
 skaffold dev
 
-lt -p 8080 --print-requests
-kubectl port-forward -n ingress-nginx services/ingress-nginx-controller 8080:80
+kubectl port-forward -n ingress-nginx services/ingress-nginx-controller 443:443 --address 0.0.0.0
 ```
 
 ## TODO

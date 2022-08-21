@@ -6,8 +6,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: "*.loca.lt"
-      http:
+    - http:
         paths:
           - path: /coffee
             pathType: Prefix
@@ -29,8 +28,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: "*.loca.lt"
-      http:
+    - http:
         paths:
           - path: /auth
             pathType: Prefix
