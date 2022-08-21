@@ -1,7 +1,12 @@
 ---
 apiVersion: skaffold/v2beta29
 kind: Config
+
 deploy:
   kubectl:
+    hooks:
+      before:
+        - host:
+            command: ["./pre-deploy-exec.bash"]
     manifests:
       - "k8s/*.yaml"
