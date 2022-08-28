@@ -1,5 +1,9 @@
 version: "3.8"
 
+# Commands to re-generate certs and private key for TLS on keycloak
+# openssl req -newkey rsa:2048 -nodes -keyout server.key.pem -x509 -days 3650 -out server.crt.pem
+# chmod 755 server.key.pem
+
 services:
   localstack:
     container_name: "${LOCALSTACK_DOCKER_NAME-localstack_main}"
@@ -46,9 +50,16 @@ services:
       DB_DATABASE: keycloak
       DB_USER: postgres
       DB_PASSWORD: postgres
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: password
+      KC_HTTPS_CERTIFICATE_FILE: /opt/keycloak/conf/server.crt.pem
+      KC_HTTPS_CERTIFICATE_KEY_FILE: /opt/keycloak/conf/server.key.pem
     image: jboss/keycloak:latest
+    volumes:
+      - "$PWD/server.crt.pem:/opt/keycloak/conf/server.crt.pem"
+      - "$PWD/server.key.pem:/opt/keycloak/conf/server.key.pem"
     ports:
-      - "8080:8080"
+      - "8443:8443"
     restart: unless-stopped
     networks:
       - deploy

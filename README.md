@@ -2,7 +2,7 @@
 
 ### Local Infrastructure Setup
 ```
-# Keep ports 8080 and 5432 free
+# Keep ports 8443 and 5432 free
 # Install AWSCLIv2, Docker, Docker-Compose, Terraform, postgresql-client-14
 pip3 install terraform-local
 pip3 install checkov
