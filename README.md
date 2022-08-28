@@ -4,6 +4,7 @@
 ```
 # Install AWSCLIv2, Docker, Docker-Compose, Terraform
 pip3 install terraform-local
+pip3 install checkov
 
 # Configure AWS
 mkdir -p ~/.aws && cp -r aws-credentials/* ~/.aws
@@ -15,10 +16,17 @@ alias aws="aws --endpoint-url=http://localhost:4566"
 
 ### Provisioning Example Vulnerable Infrastructure
 ```
+cd terraform
+
 # Deploy
 tflocal init 
 tflocal apply --auto-approve
 
 # View bucket
 aws s3api list-buckets
+```
+
+### Scanning
+```
+checkov --directory terraform
 ```
