@@ -13,6 +13,10 @@ mkdir -p ~/.aws && cp -r aws-credentials/* ~/.aws
 # set in bashrc for convenience
 complete -C '/usr/local/bin/aws_completer' aws
 alias aws="aws --endpoint-url=http://localhost:4566"
+
+# Start docker-compose deployment
+cd static-infra
+docker-compose up
 ```
 
 ### Provisioning Example Vulnerable Infrastructure

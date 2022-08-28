@@ -55,9 +55,13 @@ services:
       KC_HTTPS_CERTIFICATE_FILE: /opt/keycloak/conf/server.crt.pem
       KC_HTTPS_CERTIFICATE_KEY_FILE: /opt/keycloak/conf/server.key.pem
     image: jboss/keycloak:latest
+    command:
+      - "-b 0.0.0.0"
+      - "-Dkeycloak.import=/opt/jboss/keycloak/examples-realm.json"
     volumes:
       - "$PWD/server.crt.pem:/opt/keycloak/conf/server.crt.pem"
       - "$PWD/server.key.pem:/opt/keycloak/conf/server.key.pem"
+      - "$PWD/examples-realm.json:/opt/jboss/keycloak/examples-realm.json"
     ports:
       - "8443:8443"
     restart: unless-stopped
