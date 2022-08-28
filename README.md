@@ -2,7 +2,8 @@
 
 ### Local Infrastructure Setup
 ```
-# Install AWSCLIv2, Docker, Docker-Compose, Terraform
+# Keep ports 8080 and 5432 free
+# Install AWSCLIv2, Docker, Docker-Compose, Terraform, postgresql-client-14
 pip3 install terraform-local
 pip3 install checkov
 
@@ -24,6 +25,11 @@ tflocal apply --auto-approve
 
 # View bucket
 aws s3api list-buckets
+```
+
+### Connecting to psql database
+```
+psql --host 127.0.0.1 -U postgres
 ```
 
 ### Scanning

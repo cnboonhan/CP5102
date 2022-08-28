@@ -1,6 +1,9 @@
 *.swp
+*.swo
 volume
 .terraform
 .terraform.lock.hcl
 *.tfstate
 *.tfstate.backup
+*.pyc
+__pycache__/
