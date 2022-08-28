@@ -16,7 +16,7 @@ alias aws="aws --endpoint-url=http://localhost:4566"
 
 ### Provisioning Example Vulnerable Infrastructure
 ```
-cd terraform
+cd terraform/[dir]
 
 # Deploy
 tflocal init 
@@ -28,5 +28,5 @@ aws s3api list-buckets
 
 ### Scanning
 ```
-checkov --directory terraform
+checkov --directory terraform/[dir]
 ```
