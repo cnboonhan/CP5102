@@ -8,19 +8,16 @@ git clone https://github.com/cnboonhan/CP5102
 # Optiional, set up Wiregard / Tailscale for extended access
 
 # For privileged port-forwarding
-sudo setcap CAP_NET_BIND_SERVICE=+eip /usr/local/bin/kubectl
+sudo setcap CAP_NET_BIND_SERVICE=+eip $(which kubectl)
+sudo setcap CAP_NET_BIND_SERVICE=+eip $(which skaffold)
+# Use this to port forward manually, if needed
+kubectl port-forward -n ingress-nginx services/ingress-nginx-controller 443:443 --address 0.0.0.0
 
 # Infra Setup
-minikube start --profile dev
-minikube profile dev
-minikube addons enable ingress
-skaffold config set --global local-cluster true
-eval $(minikube -p dev docker-env)
-docker pull checkmarx/kics:latest
+bash setup-all.bash
 
-skaffold dev
-
-kubectl port-forward -n ingress-nginx services/ingress-nginx-controller 443:443 --address 0.0.0.0
+# Teardown
+bash teardown-all.bash
 ```
 
 ## TODO

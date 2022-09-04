@@ -2,11 +2,19 @@
 apiVersion: skaffold/v2beta29
 kind: Config
 
+portForward:
+- resourceType: service
+  resourceName: ingress-nginx-controller
+  namespace: ingress-nginx
+  port: 443
+  localPort: 443
+  address: 0.0.0.0
+
 deploy:
   kubectl:
     hooks:
       before:
         - host:
-            command: ["bash ./pre-deploy-exec.bash"]
+            #command: ["./pre-deploy-exec.bash"]
     manifests:
       - "k8s/*.yaml"
