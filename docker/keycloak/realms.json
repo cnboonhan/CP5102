@@ -1388,7 +1388,7 @@
       "firstBrokerLoginFlowAlias": "first broker login",
       "config": {
         "validateSignature": "false",
-        "clientId": "cp5102",
+        "clientId": "security-admin-console",
         "tokenUrl": "https://192.168.49.1:8443/singpass/token",
         "authorizationUrl": "https://192.168.49.1:8443/singpass/authorize",
         "clientAuthMethod": "clientAuth_privatekey_jwt"
