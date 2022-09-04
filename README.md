@@ -22,6 +22,7 @@ bash teardown-all.bash
 
 ## TODO
 ```
+# add instructions to modify realm file and setup-all.bash based on ip address / DNS changes
 # Add DB and Authentication
 # Assume vulnerable K8S configuration
 # Implement scans in test phase
