@@ -10,6 +10,11 @@ portForward:
   localPort: 443
   address: 0.0.0.0
 
+build:
+  artifacts:
+  - image: cp5102/keycloak
+    context: ./docker/keycloak
+
 deploy:
   kubectl:
     hooks:
