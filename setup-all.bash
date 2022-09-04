@@ -9,10 +9,15 @@ KICS_DOCKER_IMAGE_IS_PULLED="$(docker images -q checkmarx/kics)"
 [[ -n "$KICS_DOCKER_IMAGE_IS_PULLED" ]] || docker pull checkmarx/kics:latest
 [[ -n "$MINIKUBE_IS_SET_UP" ]] || ( minikube start --profile dev && minikube profile dev && minikube addons enable ingress && skaffold config set --global local-cluster true )
 
-MOCKPASS_CERT_PATH="$SCRIPT_DIR/docker/mockpass/certs"
-mkdir -p "$MOCKPASS_CERT_PATH"
-openssl s_client -showcerts -connect "$(minikube ip):443" </dev/null |  sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > "$MOCKPASS_CERT_PATH/ingress-cert.pem"
-openssl x509 -pubkey -noout -in "$MOCKPASS_CERT_PATH/ingress-cert.pem"  > "$MOCKPASS_CERT_PATH/ingress-pubkey.pem"
+KEYCLOAK_TRUSTSTORE_PATH="$SCRIPT_DIR/docker/keycloak/keycloak-truststore.p12"
+MINIKUBE_CERT_PATH="$SCRIPT_DIR/docker/mockpass/certs"
+NGINX_CERT_PATH="$SCRIPT_DIR/docker/reverseproxy"
+
+mkdir -p "$MINIKUBE_CERT_PATH"
+openssl s_client -showcerts -connect "$(minikube ip):443" </dev/null |  sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > "$MINIKUBE_CERT_PATH/ingress-cert.pem"
+openssl x509 -pubkey -noout -in "$MINIKUBE_CERT_PATH/ingress-cert.pem"  > "$MINIKUBE_CERT_PATH/ingress-pubkey.pem"
+
+keytool -importcert -storetype PKCS12 -keystore "$KEYCLOAK_TRUSTSTORE_PATH" -storepass changeit -alias minikube -file "$NGINX_CERT_PATH/nginx-selfsigned.crt" -noprompt
 
 cd "$SCRIPT_DIR/docker"
 docker-compose down

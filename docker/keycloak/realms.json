@@ -1389,8 +1389,8 @@
       "config": {
         "validateSignature": "false",
         "clientId": "cp5102",
-        "tokenUrl": "https://100.101.240.102:8443/singpass/token",
-        "authorizationUrl": "https://100.101.240.102:8443/singpass/authorize",
+        "tokenUrl": "https://192.168.49.1:8443/singpass/token",
+        "authorizationUrl": "https://192.168.49.1:8443/singpass/authorize",
         "clientAuthMethod": "clientAuth_privatekey_jwt"
       }
     }
