@@ -3,7 +3,6 @@
 ```
 # Clone and make tests executable
 git clone https://github.com/cnboonhan/CP5102
-chmod +x pre-deploy-exec.bash
 
 # Install skaffold, kubectl and minikube binaries
 # Optiional, set up Wiregard / Tailscale for extended access

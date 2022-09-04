@@ -1,0 +1,18 @@
+services:
+
+  reverseproxy:
+    build: ./reverseproxy
+    networks:
+      - idp_network
+    ports:
+      - "8443:443"
+    depends_on:
+      - mockpass
+
+  mockpass:
+    build: ./mockpass
+    networks: 
+      - idp_network
+
+networks:
+  idp_network:

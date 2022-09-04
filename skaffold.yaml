@@ -7,6 +7,6 @@ deploy:
     hooks:
       before:
         - host:
-            command: ["./pre-deploy-exec.bash"]
+            command: ["bash ./pre-deploy-exec.bash"]
     manifests:
       - "k8s/*.yaml"
