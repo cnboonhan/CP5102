@@ -3,3 +3,4 @@
 *.log
 *kubeconfig
 kics_scan_results/
+certs
