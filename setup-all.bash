@@ -21,8 +21,10 @@ mkdir -p "$NGINX_CERT_PATH"
 openssl req -x509 -nodes -days 365 -subj "/C=CA/ST=QC/O=Company, Inc./CN=*" -addext "subjectAltName=DNS:localhost,IP:192.168.49.1" -newkey rsa:2048 -keyout "$NGINX_CERT_PATH/nginx-selfsigned.key" -out "$NGINX_CERT_PATH/nginx-selfsigned.crt"
 
 mkdir -p $KEYCLOAK_STORE_PATH
-rm "$KEYCLOAK_STORE_PATH/keycloak-truststore.p12" || true
+rm -f "$KEYCLOAK_STORE_PATH/keycloak-truststore.p12" 
 keytool -importcert -storetype PKCS12 -keystore "$KEYCLOAK_STORE_PATH/keycloak-truststore.p12" -storepass changeit -alias minikube -file "$NGINX_CERT_PATH/nginx-selfsigned.crt" -noprompt
+rm -f "$KEYCLOAK_STORE_PATH/keycloak-keystore.p12" 
+keytool -import -storetype PKCS12 -keystore "$KEYCLOAK_STORE_PATH/keycloak-keystore.p12" -file "$NGINX_CERT_PATH/nginx-selfsigned.crt" -alias minikube -storepass changeit -noprompt
 
 cd "$SCRIPT_DIR/docker"
 docker-compose down
