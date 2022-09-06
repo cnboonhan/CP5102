@@ -1,15 +1,10 @@
 # CP5102
 
 ```
-# Clone and make tests executable
-git clone https://github.com/cnboonhan/CP5102
-
 # Install jq, skaffold, kubectl and minikube 
-# Optiional, set up Wiregard / Tailscale for extended access
 
 # For privileged port-forwarding
-sudo setcap CAP_NET_BIND_SERVICE=+eip $(which kubectl)
-sudo setcap CAP_NET_BIND_SERVICE=+eip $(which skaffold)
+sudo setcap CAP_NET_BIND_SERVICE=+eip $(which kubectl); sudo setcap CAP_NET_BIND_SERVICE=+eip $(which skaffold)
 # Use this to port forward manually, if needed
 kubectl port-forward -n ingress-nginx services/ingress-nginx-controller 443:443 --address 0.0.0.0
 
