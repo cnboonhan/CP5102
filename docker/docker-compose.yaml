@@ -1,4 +1,26 @@
 services:
+  gitea:
+    container_name: gitea
+    image: gitea/gitea:latest
+    restart: unless-stopped
+    environment:
+      - APP_NAME="Gitea"
+      - USER_UID=1000
+      - USER_GID=1000
+      - RUN_MODE=prod
+      - DOMAIN=192.168.49.1
+      - SSH_DOMAIN=192.168.49.1
+      - HTTP_PORT=3000
+      - ROOT_URL=https://192.168.49.1:8443
+      - SSH_PORT=222
+      - SSH_LISTEN_PORT=22
+      - GITEA__WEBHOOK__ALLOWED_HOST_LIST=192.168.49.1
+      - GITEA__PACKAGES__ENABLED=true
+      - GITEA__security__INSTALL_LOCK=true
+    networks:
+      - idp_network
+    volumes:
+      - ./gitea:/data
 
   reverseproxy:
     build: ./reverseproxy
@@ -7,12 +29,7 @@ services:
     ports:
       - "8443:443"
     depends_on:
-      - mockpass
-
-  mockpass:
-    build: ./mockpass
-    networks: 
-      - idp_network
+      - gitea
 
 networks:
   idp_network:

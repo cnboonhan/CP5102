@@ -5,3 +5,5 @@
 kics_scan_results/
 certs
 stores
+gitea/
+realms.json
