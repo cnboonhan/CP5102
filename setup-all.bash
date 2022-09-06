@@ -13,7 +13,7 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 KEYCLOAK_REALM_PATH="$SCRIPT_DIR/docker/keycloak/realms.json"
 KEYCLOAK_REALM_TEMPLATE_PATH="$SCRIPT_DIR/docker/keycloak/realms.json.template"
-cat "$KEYCLOAK_REALM_TEMPLATE_PATH" | sed "s/GITEA_CLIENT_ID/$GITEA_CLIENT_ID/g" | sed "s/GITEA_CLIENT_SECRET/$GITEA_CLIENT_SECRETS/g" > "$KEYCLOAK_REALM_PATH"
+cat "$KEYCLOAK_REALM_TEMPLATE_PATH" | sed "s/GITEA_CLIENT_ID/$GITEA_CLIENT_ID/g" | sed "s/GITEA_CLIENT_SECRET/$GITEA_CLIENT_SECRET/g" > "$KEYCLOAK_REALM_PATH"
 
 MINIKUBE_IS_SET_UP="$(minikube profile | grep dev || true)"
 KICS_DOCKER_IMAGE_IS_PULLED="$(docker images -q checkmarx/kics)"
