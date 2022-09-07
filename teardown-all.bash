@@ -4,14 +4,14 @@ set -o xtrace
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-minikube stop --profile dev
-minikube delete --profile dev
+minikube stop --profile dev || true
+minikube delete --profile dev || true
 
 cd "$SCRIPT_DIR/docker"
 docker-compose down
 
 docker system prune
 
-rm "$SCRIPT_DIR/keycloak/realms.json" || true
-rm -r "$SCRIPT_DIR/keycloak/stores" || true
-rm -r "$SCRIPT_DIR/reverseproxy/certs" || true
+rm "$SCRIPT_DIR/docker/keycloak/realms.json" || true
+rm -r "$SCRIPT_DIR/docker/keycloak/stores" || true
+rm -r "$SCRIPT_DIR/docker/reverseproxy/certs" || true
