@@ -13,9 +13,7 @@ portForward:
 build:
   artifacts:
   - image: cp5102/keycloak-broker
-    context: ./docker/keycloak
-    docker:
-      dockerfile: ./docker/keycloak/keycloak-broker.Dockerfile 
+    context: ./infra/docker/keycloak
 
 deploy:
   kubectl:
@@ -24,4 +22,4 @@ deploy:
         - host:
             #command: ["./pre-deploy-exec.bash"]
     manifests:
-      - "k8s/*.yaml"
+      - "infra/k8s/*.yaml"

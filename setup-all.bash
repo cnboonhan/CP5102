@@ -4,8 +4,8 @@ set -o xtrace
 
 # Name of network here is coupled with naming in docker-compose.yaml
 get_keycloak_idp_ip(){
-docker network inspect docker_idp_network  | \
-  jq '.[] | select(.Name=="docker_idp_network")' | \
+docker network inspect idp_network  | \
+  jq '.[] | select(.Name=="idp_network")' | \
   jq '.Containers' | \
   jq '.[] | select(.Name=="keycloak-idp")' | \
   jq '.IPv4Address' | \
@@ -19,7 +19,7 @@ KICS_DOCKER_IMAGE_IS_PULLED="$(docker images -q checkmarx/kics)"
 [[ -n "$KICS_DOCKER_IMAGE_IS_PULLED" ]] || docker pull checkmarx/kics:latest
 [[ -n "$MINIKUBE_IS_SET_UP" ]] || ( minikube start --profile dev && minikube profile dev && minikube addons enable ingress && skaffold config set --global local-cluster true )
 
-cd "$SCRIPT_DIR/docker"
+cd "$SCRIPT_DIR/idp"
 docker-compose down
 docker-compose up --build -d
 
@@ -38,4 +38,4 @@ done
 [[ -x "$SCRIPT_DIR/pre-deploy-exec.bash" ]] || chmod +x pre-deploy-exec.bash
 
 cd "$SCRIPT_DIR"
-#skaffold dev
+skaffold dev
