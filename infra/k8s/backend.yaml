@@ -2,33 +2,33 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: coffee-svc
+  name: gitea-svc
 spec:
   ports:
     - port: 80
-      targetPort: 8080
+      targetPort: 3000
       protocol: TCP
       name: http
   selector:
-    app: coffee
+    app: gitea
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: coffee
+  name: gitea
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: coffee
+      app: gitea
   template:
     metadata:
       labels:
-        app: coffee
+        app: gitea
     spec:
       containers:
-        - name: coffee
-          image: nginxdemos/nginx-hello:plain-text
+        - name: gitea
+          image: cp5102/gitea:latest
           ports:
-            - containerPort: 8080
+            - containerPort: 80

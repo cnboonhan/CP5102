@@ -40,4 +40,4 @@ done
 [[ -x "$SCRIPT_DIR/pre-deploy-exec.bash" ]] || chmod +x pre-deploy-exec.bash
 
 cd "$SCRIPT_DIR"
-KEYCLOAK_IDP_HOST=$KEYCLOAK_IDP_HOST skaffold dev
+KEYCLOAK_IDP_HOST=$KEYCLOAK_IDP_HOST MINIKUBE_INGRESS_HOST=$(minikube ip) skaffold dev

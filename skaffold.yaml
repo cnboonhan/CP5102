@@ -17,6 +17,12 @@ build:
     docker:
       buildArgs:
         KEYCLOAK_IDP_HOST: '{{ .KEYCLOAK_IDP_HOST }}'
+        MINIKUBE_INGRESS_HOST: '{{ .MINIKUBE_INGRESS_HOST }}'
+  - image: cp5102/gitea
+    context: ./infra/docker/gitea
+    docker:
+      buildArgs:
+        MINIKUBE_INGRESS_HOST: '{{ .MINIKUBE_INGRESS_HOST }}'
 
 deploy:
   kubectl:
@@ -24,5 +30,8 @@ deploy:
       before:
         - host:
             #command: ["./pre-deploy-exec.bash"]
+      after:
+        - host:
+            command: ["./post-deploy-exec.bash"]
     manifests:
       - "infra/k8s/*.yaml"
