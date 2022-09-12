@@ -20,7 +20,7 @@ KEYCLOAK_IDP_HOST=192.168.x.x bash setup-all.bash
 # visit https://192.168.49.1:8443, log in with credentials idp_admin / password and load realms-idp.json
 # Create Users
 docker exec -it keycloak-idp bash 
-/opt/keycloak/bin/kcadm.sh config credentials  --server http://127.0.0.1:8080 --realm SSO --user idp_admin --password password
+/opt/keycloak/bin/kcadm.sh config credentials  --server http://127.0.0.1:8080 --realm master --user idp_admin --password password
 /opt/keycloak/bin/kcadm.sh create users -r SSO -s username=user1 -s enabled=true
 /opt/keycloak/bin/kcadm.sh set-password -r SSO --username user1 --new-password password
 ```
