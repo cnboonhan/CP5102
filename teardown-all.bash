@@ -8,10 +8,5 @@ minikube stop --profile dev || true
 minikube delete --profile dev || true
 
 cd "$SCRIPT_DIR/docker"
-docker-compose down
-
+docker-compose down -v
 docker system prune
-
-rm "$SCRIPT_DIR/docker/keycloak/realms.json" || true
-rm -r "$SCRIPT_DIR/docker/keycloak/stores" || true
-rm -r "$SCRIPT_DIR/docker/reverseproxy/certs" || true

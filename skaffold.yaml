@@ -12,8 +12,10 @@ portForward:
 
 build:
   artifacts:
-  - image: cp5102/keycloak
+  - image: cp5102/keycloak-broker
     context: ./docker/keycloak
+    docker:
+      dockerfile: ./docker/keycloak/keycloak-broker.Dockerfile 
 
 deploy:
   kubectl:
