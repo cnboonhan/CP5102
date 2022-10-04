@@ -14,12 +14,12 @@ docker network inspect idp_network  | \
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-MINIKUBE_IS_SET_UP="$(minikube profile | grep dev || true)"
+MINIKUBE_STATUS="$(minikube status --profile dev -o json | jq -r '.Host')"
 KICS_DOCKER_IMAGE_IS_PULLED="$(docker images -q checkmarx/kics)"
 KEYCLOAK_IDP_HOST="${KEYCLOAK_IDP_HOST:-192.168.49.1}"
 
 [[ -n "$KICS_DOCKER_IMAGE_IS_PULLED" ]] || docker pull checkmarx/kics:latest
-[[ -n "$MINIKUBE_IS_SET_UP" ]] || ( minikube start --profile dev && minikube profile dev && minikube addons enable ingress && skaffold config set --global local-cluster true )
+[[ "$MINIKUBE_STATUS" == 'Running' ]] || ( minikube start --profile dev && minikube profile dev && minikube addons enable ingress && skaffold config set --global local-cluster true )
 
 cd "$SCRIPT_DIR/idp"
 docker-compose down
