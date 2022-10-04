@@ -1,0 +1,73 @@
+volumes:
+  psql_db:
+    driver: local
+
+services:
+  coredns:
+    image: coredns/coredns:latest
+    container_name: coredns
+    restart: on-failure # other option: always - if you want persistent through host reboots
+    volumes:
+      - "$PWD/coredns-config:/etc/coredns"
+    networks:
+      idp_network:
+        ipv4_address: 172.28.0.4
+    dns:
+      - 172.28.0.4
+    command: [ "-conf",  "/etc/coredns/Corefile" ]
+
+  postgres:
+    image: postgres:14.1-alpine
+    container_name: keycloak-idp-db
+    restart: always
+    volumes: 
+      - psql_db:/var/lib/postgresql/data
+    networks:
+      idp_network:
+        ipv4_address: 172.28.0.3
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: keycloak
+    dns:
+      - 172.28.0.4
+
+  keycloak:
+    depends_on:
+      - postgres
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak-idp
+    restart: unless-stopped
+    volumes:
+      - "$PWD/keycloak-idp.p12:/opt/keycloak/conf/keystore.p12"
+    networks:
+      idp_network:
+        ipv4_address: 172.28.0.2
+    environment:
+      KC_DB: postgres
+      KC_DB_URL_DATABASE: keycloak
+      KC_DB_URL_HOST: postgres
+      KC_DB_URL_PORT: 5432
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: postgres
+      #KC_HTTP_RELATIVE_PATH: '/'
+      KC_HTTPS_PORT: 443
+      KEYCLOAK_ADMIN: idp_admin
+      KEYCLOAK_ADMIN_PASSWORD: password
+      KC_HTTPS_KEY_STORE_FILE: '/opt/keycloak/conf/keystore.p12'
+      #KC_KEY_STORE_PASSWORD: 'password'
+    dns:
+      - 172.28.0.4
+    ports:
+      - "8443:443"   # Allow idp keycloak to be accessible on $(minikube ip):8443
+    command:
+      - "start-dev"
+
+networks:
+  idp_network:
+    name: idp_network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/24
+          gateway: 172.28.0.1

@@ -13,7 +13,6 @@ kubectl port-forward -n ingress-nginx services/ingress-nginx-controller 443:443 
 ## First Time Setup
 ```
 bash setup-all.bash
-KEYCLOAK_IDP_HOST=192.168.x.x bash setup-all.bash  # If Keycloak IDP is different
 
 # One-Time SSO IDP setup
 docker exec -it keycloak-idp bash 

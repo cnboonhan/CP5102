@@ -13,16 +13,16 @@ portForward:
 build:
   artifacts:
   - image: cp5102/keycloak-broker
-    context: ./infra/docker/keycloak
+    context: ./kube-infra/docker/keycloak
     docker:
       buildArgs:
         KEYCLOAK_IDP_HOST: '{{ .KEYCLOAK_IDP_HOST }}'
         MINIKUBE_INGRESS_HOST: '{{ .MINIKUBE_INGRESS_HOST }}'
-  - image: cp5102/gitea
-    context: ./infra/docker/gitea
-    docker:
-      buildArgs:
-        MINIKUBE_INGRESS_HOST: '{{ .MINIKUBE_INGRESS_HOST }}'
+  #- image: cp5102/gitea
+    #context: ./kube-infra/docker/gitea
+    #docker:
+      #buildArgs:
+        #MINIKUBE_INGRESS_HOST: '{{ .MINIKUBE_INGRESS_HOST }}'
 
 deploy:
   kubectl:
@@ -34,4 +34,4 @@ deploy:
         - host:
             command: ["./post-deploy-exec.bash"]
     manifests:
-      - "infra/k8s/*.yaml"
+      - "kube-infra/k8s/*.yaml"
