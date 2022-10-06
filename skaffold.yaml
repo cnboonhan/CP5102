@@ -18,6 +18,8 @@ build:
       buildArgs:
         KEYCLOAK_IDP_HOST: '{{ .KEYCLOAK_IDP_HOST }}'
         MINIKUBE_INGRESS_HOST: '{{ .MINIKUBE_INGRESS_HOST }}'
+  - image: cp5102/gitea
+    context: ./kube-infra/docker/gitea
 
 deploy:
   kubectl:
