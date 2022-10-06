@@ -12,15 +12,17 @@ kubectl port-forward -n ingress-nginx services/ingress-nginx-controller 443:443 
 
 ## First Time Setup
 ```
+# configure external-infra/coredns-config/Corefile with DNS configurations
+# Set up local /etc/resolv.conf with nameserver 172.28.0.4
 bash setup-all.bash
 
 # One-Time SSO IDP setup
 docker exec -it keycloak-idp bash 
-/opt/keycloak/bin/kcadm.sh config credentials  --server http://127.0.0.1:8080 --realm master --user idp_admin --password password
+/opt/keycloak/bin/kcadm.sh config credentials  --server http://127.0.0.1:8080/auth --realm master --user idp_admin --password password
 
 ## Create IDP SSO Realm and Client
 /opt/keycloak/bin/kcadm.sh create realms -s realm=SSO -s enabled=true -o
-/opt/keycloak/bin/kcadm.sh create clients -r SSO -s clientId=cp5102 -s 'redirectUris=["*"]' -s directAccessGrantsEnabled=true -s publicClient=true
+/opt/keycloak/bin/kcadm.sh create clients -r SSO -s clientId=cp5102 -s 'redirectUris=["*"]' -s directAccessGrantsEnabled=true -s publicClient=false -s clientAuthenticatorType=client-secret -s secret=00000000-0000-0000-0000-000000000000
 
 ## Create IDP Users
 /opt/keycloak/bin/kcadm.sh create users -r SSO -s username=user1 -s enabled=true
