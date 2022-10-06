@@ -9,4 +9,4 @@ minikube delete --profile dev || true
 
 cd "$SCRIPT_DIR/external-infra"
 docker-compose down -v
-docker system prune
+docker system prune -f
