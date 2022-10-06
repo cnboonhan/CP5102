@@ -16,7 +16,7 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 MINIKUBE_STATUS="$(minikube status --profile dev -o json | jq -r '.Host')"
 KICS_DOCKER_IMAGE_IS_PULLED="$(docker images -q checkmarx/kics)"
-KEYCLOAK_IDP_HOST="${KEYCLOAK_IDP_HOST:-auth.cp5102.edu}"
+KEYCLOAK_IDP_HOST="${KEYCLOAK_IDP_HOST:-cp5102.edu/auth}"
 
 [[ -n "$KICS_DOCKER_IMAGE_IS_PULLED" ]] || docker pull checkmarx/kics:latest
 [[ "$MINIKUBE_STATUS" == 'Running' ]] || ( minikube start --profile dev && minikube profile dev && minikube addons enable ingress && skaffold config set --global local-cluster true )
