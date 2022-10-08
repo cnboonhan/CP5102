@@ -1,9 +1,4 @@
 *.swp
-.vagrant
 *.log
 *kubeconfig
 kics_scan_results/
-certs
-stores
-gitea/
-realms.json
