@@ -16,7 +16,7 @@ if __name__ == '__main__':
   print(f"Authenticator Config Path: {authenticator_config}")
   print(f"Domain Name: {domain_name}")
   
-  print("\n-------------------EXTRACTING AUTHENTICATOR CONFIG-----------------------00")
+  print("\n-------------------EXTRACTING AUTHENTICATOR CONFIG-------------------------")
   authenticator_config_type = DemoIACIdentifier().identify_authenticator_config(authenticator_config)
   print(f"Authenticator Config type identified as {authenticator_config_type}")
 
@@ -51,3 +51,8 @@ if __name__ == '__main__':
 
   print("\n-------------------Generating SSO Model-----------------------------------")
   sso = SSOModel()
+  sso.idp.idp_token_endpoint = idp_token_endpoint
+  sso.idp.idp_jwks_endpoint = idp_jwks_endpoint
+  sso.idp.idp_userinfo_endpoint = idp_userinfo_endpoint
+  sso.idp.idp_auth_endpoint = idp_auth_endpoint
+  sso.render()
