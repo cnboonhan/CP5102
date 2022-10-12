@@ -13,7 +13,7 @@ kubectl port-forward -n ingress-nginx services/ingress-nginx-controller 443:443 
 ## First Time Setup
 ```
 # configure external-infra/coredns-config/Corefile and kube-infra/k8s/coredns with DNS configurations
-# Set up local /etc/resolv.conf with nameserver 172.28.0.4
+# Set up local /etc/resolv.conf with nameserver 172.28.0.53
 bash setup-all.bash
 
 # One-Time SSO IDP setup
