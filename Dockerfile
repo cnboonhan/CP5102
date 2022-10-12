@@ -10,6 +10,4 @@ RUN apt install graphviz -y
 COPY red_team .
 COPY kube-infra ./iac
 
-l
-
 CMD [ "python", "./main.py" ]
