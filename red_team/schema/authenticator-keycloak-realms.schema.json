@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "authenticator-keycloak-realms",
+  "description": "Validate the given json file is a Keycloak Realms file, with the necessary configurations for SSO",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "identityProviders": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "alias": {
+            "type": "string"
+          },
+          "config": {
+            "type": "object",
+            "properties": {
+              "userInfoUrl": {
+                "type": "string"
+              },
+              "tokenUrl": {
+                "type": "string"
+              },
+              "jwksUrl": {
+                "type": "string"
+              },
+              "authorizationUrl": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "userInfoUrl",
+              "tokenUrl",
+              "jwksUrl",
+              "authorizationUrl"
+            ]
+          }
+        },
+        "required": [
+          "alias",
+          "config"
+        ]
+      }
+    }
+  },
+  "required": [
+    "id",
+    "identityProviders"
+  ]
+}
