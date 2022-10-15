@@ -2,7 +2,7 @@
 
 ## Dependencies
 ```
-# Install docker, docker-compose, jq, skaffold, kubectl and minikube 
+# Install docker, docker-compose, jq, skaffold, kubectl, kubectl-slice and minikube 
 
 # For privileged port-forwarding
 sudo setcap CAP_NET_BIND_SERVICE=+eip $(which kubectl); sudo setcap CAP_NET_BIND_SERVICE=+eip $(which skaffold)
