@@ -1,5 +1,5 @@
 from lib.sso_models import SSOModel
-from lib.extract_helpers import extract_authenticator_keycloak_realms_config, extract_authenticator_keycloak_ingress_config
+from lib.extract_helpers import extract_authenticator_keycloak_realms_config, extract_authenticator_keycloak_ingress_config, extract_kubernetes_dns_coredns_configs
 import glob
 import re
 import os
@@ -18,11 +18,13 @@ class IACExtractor:
 
     def extract_idp_config(self, sso: SSOModel):
         logging.info(f"Extracting IDP configurations..")
-        config = extract_authenticator_keycloak_realms_config(
+
+        # TODO: Implement more Info objects for different Authenticators
+        realms_config = extract_authenticator_keycloak_realms_config(
             self.all_non_hidden_files_in_iac_path)
-        if config:
+        if realms_config:
             # TODO: For now, just select the IDP with hardcoded 'oidc' for demo purposes
-            c = config.idp_configs['oidc']
+            c = realms_config.idp_configs['oidc']
             sso.idp.userInfoUrl = c.userInfoUrl
             sso.idp.tokenUrl = c.tokenUrl
             sso.idp.jwksUrl = c.jwksUrl
@@ -36,9 +38,30 @@ class IACExtractor:
             logging.info(
                 f"SSO Model after idp info extraction: {sso.describe()}")
             return
-        # TODO: Implement more Info objects for different Authenticators
 
-    def extract_serviceprovider_config(self, sso: SSOModel):
-        logging.info(f"Extracting ServiceProvider configurations..")
-        config = extract_authenticator_keycloak_ingress_config(
+    def extract_authenticator_config(self, sso: SSOModel):
+        logging.info(f"Extracting Authenticator configurations..")
+
+        realms_config = extract_authenticator_keycloak_realms_config(
             self.all_non_hidden_files_in_iac_path)
+        ingress_config = extract_authenticator_keycloak_ingress_config(
+            self.all_non_hidden_files_in_iac_path)
+        dns_configs = extract_kubernetes_dns_coredns_configs(self.all_non_hidden_files_in_iac_path)
+
+        if realms_config and ingress_config and dns_configs:
+            # TODO: For now, just select the IDP with hardcoded 'oidc' for demo purposes
+            c = realms_config.idp_configs['oidc']
+            sso.authenticator.realm = realms_config.realm
+
+            for dns_config in dns_configs:
+                hosts_re = r'(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-]{,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}'
+                all_hosts = re.findall(hosts_re, dns_config.config)
+            # TODO: Currently manual selection from all_hosts from dns config
+            sso.authenticator.domain = "cluster.cp5102.edu"
+            sso.authenticator.authorizationUrl = f"{sso.authenticator.domain}{ingress_config.ingress_path}/realms/{realms_config.realm}/protocol/openid-connect/auth"
+
+            logging.info(
+                f"SSO Model after authenticator config extraction: {sso.describe()}")
+            return
+
+

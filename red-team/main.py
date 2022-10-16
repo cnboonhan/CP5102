@@ -16,4 +16,4 @@ if __name__ == '__main__':
 
     x = IACExtractor(iac_path=iac_path)
     x.extract_idp_config(sso)
-    x.extract_serviceprovider_config(sso)
+    x.extract_authenticator_config(sso)

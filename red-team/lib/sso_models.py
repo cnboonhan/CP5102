@@ -12,9 +12,17 @@ class IDP:
         self.domain = None               # type: str | None
 
 
+class Authenticator:
+    def __init__(self):
+        self.realm = None                # type: str | None
+        self.domain = None               # type: str | None
+        self.authorizationUrl = None     # type: str | None
+
+
 class SSOModel:
     def __init__(self):
-        self.idp = IDP()  # type: IDP
+        self.idp = IDP()
+        self.authenticator = Authenticator()
 
     def describe(self):
-        return {'idp': self.idp.__dict__}
+        return {'idp': self.idp.__dict__, 'authenticator': self.authenticator.__dict__}

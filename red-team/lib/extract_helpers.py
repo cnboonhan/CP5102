@@ -17,6 +17,7 @@ class AuthenticatorKeycloakRealmsInfo:
 
     def __init__(self, iac_filepath: str):
         self.id = None
+        self.realm = None
         self.idp_configs = {}
         logging.info(
             f"Parsing {iac_filepath} as an {self.__class__.__name__} object")
@@ -24,6 +25,7 @@ class AuthenticatorKeycloakRealmsInfo:
         with open(iac_filepath) as iac:
             iac_json = json.load(iac)
             self.id = iac_json['id']
+            self.realm = iac_json['realm']
             for idp in iac_json['identityProviders']:
                 alias = idp['alias']
                 config = idp['config']
@@ -38,6 +40,50 @@ class AuthenticatorKeycloakRealmsInfo:
 class AuthenticatorKeycloakIngressInfo:
     def __init__(self, ingress_path: str):
         self.ingress_path = ingress_path
+
+
+class DNSCoreDNSInfo:
+    def __init__(self, config: str):
+        self.config = config
+
+
+def extract_kubernetes_dns_coredns_configs(files: List[str]):
+    with open(GlobalConfigurations.DNS_COREDNS_KUBERNETES_CONFIGMAP_SCHEMA) as schema_filepath:
+        schema = yamale.make_schema(
+            GlobalConfigurations.DNS_COREDNS_KUBERNETES_CONFIGMAP_SCHEMA)
+        logging.debug(
+            f"Scanning for Kubernetes CoreDNS Configmap file using {GlobalConfigurations.DNS_COREDNS_KUBERNETES_CONFIGMAP_SCHEMA} with schema {schema.dict}")
+        infos = []  # type: List[DNSCoreDNSInfo]
+
+        for iac_filepath in files:
+            try:
+                with open(iac_filepath) as iac:
+                    datas = yaml.load_all(iac, Loader=yaml.SafeLoader)
+                    for data in datas:
+                        try:
+                            is_valid = yamale.validate(schema, yamale.make_data(
+                                content=yaml.dump(data)), strict=False)
+                            if is_valid:
+                                logging.info(
+                                    f"Found coredns configmap in file {iac_filepath}")
+                                infos.append(DNSCoreDNSInfo(
+                                    data['data']['Corefile']))
+
+                        except yamale.yamale_error.YamaleError as e:
+                            # logging.debug(e)
+                            continue
+
+                    logging.debug(f"{iac_filepath} failed validation.")
+
+            except (json.decoder.JSONDecodeError, UnicodeDecodeError):
+                logging.debug(f"{iac_filepath} is not a yaml file")
+            except IsADirectoryError:
+                continue
+
+        if infos:
+            return infos
+        else:
+            logging.warning(f"No valid CoreDNS IAC was found")
 
 
 def extract_authenticator_keycloak_realms_config(files: List[str]):
@@ -78,14 +124,14 @@ def extract_authenticator_keycloak_ingress_config(files: List[str]):
             try:
                 with open(iac_filepath) as iac:
                     datas = yaml.load_all(iac, Loader=yaml.SafeLoader)
-                    logging.debug(schema.dict)
                     for data in datas:
                         try:
                             is_valid = yamale.validate(schema, yamale.make_data(
                                 content=yaml.dump(data)), strict=False)
                             if is_valid:
-                                logging.info(f"Found deployment for a keycloak image in file {iac_filepath}")
-                                return data['spec']['selector']['matchLabels']['app']  
+                                logging.info(
+                                    f"Found deployment for a keycloak image in file {iac_filepath}")
+                                return data['spec']['selector']['matchLabels']['app']
 
                         except yamale.yamale_error.YamaleError as e:
                             # logging.debug(e)
@@ -114,7 +160,8 @@ def extract_authenticator_keycloak_ingress_config(files: List[str]):
                             is_valid = yamale.validate(schema, yamale.make_data(
                                 content=yaml.dump(data)), strict=False)
                             if is_valid and data['spec']['selector']['app'] == selector_id:
-                                logging.info(f"Found Service for a keycloak Deployment in file {iac_filepath} and selector {selector_id}")
+                                logging.info(
+                                    f"Found Service for a keycloak Deployment in file {iac_filepath} and selector {selector_id}")
                                 return data['metadata']['name']
 
                         except yamale.yamale_error.YamaleError as e:
@@ -150,7 +197,8 @@ def extract_authenticator_keycloak_ingress_config(files: List[str]):
                                     for path in paths:
                                         backend = path['backend']['service']['name']
                                         if backend == service_name:
-                                            logging.info(f"Found Ingress for a keycloak Service in file {iac_filepath} and service name {service_name}")
+                                            logging.info(
+                                                f"Found Ingress for a keycloak Service in file {iac_filepath} and service name {service_name}")
                                             return path['path']
 
                         except yamale.yamale_error.YamaleError as e:
@@ -164,7 +212,6 @@ def extract_authenticator_keycloak_ingress_config(files: List[str]):
             except IsADirectoryError:
                 continue
         logging.warning(f"No valid Service IAC was found")
-
 
     selector_id = _get_keycloak_selector(files)
     if not selector_id:

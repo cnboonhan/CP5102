@@ -7,6 +7,12 @@
         "id": {
             "type": "string"
         },
+        "clients": {
+            "type": "array"
+        },
+        "realm": {
+            "type": "string"
+        },
         "identityProviders": {
             "type": "array",
             "items": {
@@ -48,6 +54,8 @@
     },
     "required": [
         "id",
+        "clients",
+        "realm",
         "identityProviders"
     ]
 }

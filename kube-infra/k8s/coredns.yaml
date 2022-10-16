@@ -21,7 +21,7 @@ data:
           reload
           loadbalance
           hosts custom.hosts cp5102.edu {
-            172.28.0.1 cp5102.edu
+            172.28.0.1   cp5102.edu
             192.168.49.2 cluster.cp5102.edu
             fallthrough
           }

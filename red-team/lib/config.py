@@ -3,3 +3,4 @@ class GlobalConfigurations:
   AUTHENTICATOR_KEYCLOAK_KUBERNETES_DEPLOYMENT_SCHEMA = "schema/yaml/infrastructure-kubernetes-deployment-keycloak.yaml"
   AUTHENTICATOR_KEYCLOAK_KUBERNETES_SERVICE_SCHEMA = "schema/yaml/infrastructure-kubernetes-service-keycloak.yaml"
   AUTHENTICATOR_KEYCLOAK_KUBERNETES_INGRESS_SCHEMA = "schema/yaml/infrastructure-kubernetes-ingress-keycloak.yaml"
+  DNS_COREDNS_KUBERNETES_CONFIGMAP_SCHEMA = "schema/yaml/infrastructure-kubernetes-dns-coredns.yaml"
