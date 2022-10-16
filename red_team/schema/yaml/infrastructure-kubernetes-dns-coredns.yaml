@@ -1,5 +1,0 @@
-kind: str(matches="ConfigMap")
-metadata:
-  namespace: str(matches="kube-system")
-data:
-  Corefile: str()

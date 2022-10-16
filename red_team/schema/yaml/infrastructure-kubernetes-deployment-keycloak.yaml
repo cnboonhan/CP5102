@@ -1,6 +1,0 @@
-kind: str(matches="Deployment")
-spec: 
-  template:
-    spec:
-      containers:
-        - image: str(matches=".*keycloak.*")

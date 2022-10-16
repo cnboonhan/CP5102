@@ -1,0 +1,9 @@
+kind: str(matches="Ingress")
+spec:
+    rules:
+        - http:
+              paths:
+                  - path: str()
+                    backend:
+                        service:
+                            name: str()

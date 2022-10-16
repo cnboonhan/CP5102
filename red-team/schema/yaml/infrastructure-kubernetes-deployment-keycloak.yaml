@@ -1,0 +1,9 @@
+kind: str(matches="Deployment")
+spec:
+    selector:
+        matchLabels:
+            app: str()
+    template:
+        spec:
+            containers:
+                - image: str(matches=".*keycloak.*")

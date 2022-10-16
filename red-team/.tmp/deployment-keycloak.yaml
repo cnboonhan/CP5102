@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keycloak
+  labels:
+    app: keycloak
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: keycloak
+  template:
+    metadata:
+      labels:
+        app: keycloak
+    spec:
+      containers:
+      - name: keycloak
+        image: cp5102/keycloak-broker
+        args: ["start-dev"]
+        env:
+        - name: KEYCLOAK_ADMIN
+          value: "admin"
+        - name: KEYCLOAK_ADMIN_PASSWORD
+          value: "password"
+        - name: KC_PROXY
+          value: "edge"
+        - name: PROXY_ADDRESS_FORWARDING
+          value: "true"
+        - name: KC_HTTP_RELATIVE_PATH
+          value: "/auth"
+        - name: DB_USER
+          value: "keycloak"
+        - name: DB_PASSWORD
+          value: "keycloak"
+        ports:
+        - name: http
+          containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /auth/realms/master
+            port: 8080
+

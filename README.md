@@ -2,7 +2,7 @@
 
 ## Dependencies
 ```
-# Install docker, docker-compose, jq, skaffold, kubectl, kubectl-slice, yamale and minikube 
+# Install docker, docker-compose, jq, skaffold, kubectl, yamale and minikube 
 
 # For privileged port-forwarding
 sudo setcap CAP_NET_BIND_SERVICE=+eip $(which kubectl); sudo setcap CAP_NET_BIND_SERVICE=+eip $(which skaffold)
@@ -40,11 +40,4 @@ docker exec -it keycloak-idp bash
 ## TearDown
 ```
 bash teardown-all.bash
-```
-
-## TODO
-```
-# Assume vulnerable K8S configuration
-# Implement scans in test phase
-# Detect Vulnerabilities
 ```

@@ -1,0 +1,6 @@
+kind: str(matches="Service")
+metadata:
+    name: str()
+spec:
+    selector:
+        app: str()
