@@ -8,5 +8,4 @@ OAUTH_IS_CREATED="$(kubectl exec services/gitea-svc -- su - git -c '/usr/local/b
 [[ "$OAUTH_IS_CREATED" =~ "gitea" ]] || kubectl exec services/gitea-svc -- su - git -c "/usr/local/bin/gitea admin auth add-oauth --name gitea --provider openidConnect -key gitea --secret 00000000-0000-0000-0000-000000000000 --auto-discover-url http://cluster.cp5102.edu/auth/realms/hello-world/.well-known/openid-configuration"
 
 [ -n "$(docker container ls -aq --filter name=red-team)" ] && docker container rm red-team -f > /dev/null 2>&1
-docker run --name red-team $(docker build . -q)
-docker cp red-team:/usr/src/app/sso.gv.pdf .
+docker run --name red-team -d --network host $(docker build . -q) 

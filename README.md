@@ -35,6 +35,9 @@ docker exec -it keycloak-idp bash
 ## Create IDP Users
 /opt/keycloak/bin/kcadm.sh create users -r SSO -s username=user1 -s enabled=true
 /opt/keycloak/bin/kcadm.sh set-password -r SSO --username user1 --new-password password
+
+# Watch red-team container for credentials extraction
+docker logs red-team -f
 ```
 
 ## TearDown
