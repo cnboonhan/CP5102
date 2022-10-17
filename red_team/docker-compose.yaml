@@ -1,0 +1,25 @@
+services:
+  proxy:
+    build: 
+        context: .
+        dockerfile: docker/proxy/Dockerfile
+    container_name: red_team_proxy
+    network_mode: host
+
+  phishing_server:
+    build: 
+        context: .
+        dockerfile: docker/phishing_server/Dockerfile
+    container_name: red_team_phishing_server
+    networks:
+      red_team_network:
+        ipv4_address: 172.29.0.3
+
+networks:
+  red_team_network:
+    name: red_team_network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.29.0.0/24
+          gateway: 172.29.0.1

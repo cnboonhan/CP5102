@@ -18,8 +18,6 @@ mkdir -p "$IAC_RED_TEAM_OUTPUT_FOLDER"
 
 cp -r "$IAC_BLUE_TEAM_SOURCE_PATH" "$IAC_RED_TEAM_DEST_PATH"
 
-[ -n "$(docker container ls -aq --filter name=red_team)" ] && docker container rm -f $(docker ps -aq --filter name=red_team) > /dev/null 2>&1
-docker run --name red_team_extract_sso $(docker build red_team -f red_team/extract_sso.Dockerfile -q) 
+[ -n "$(docker container ls -aq --filter name=red_team_extract_sso)" ] && docker container rm -f $(docker ps -aq --filter name=red_team_extract_sso) > /dev/null 2>&1
+docker run --name red_team_extract_sso $(docker build red_team -f red_team/docker/extract_sso/Dockerfile -q) 
 docker cp red_team_extract_sso:/usr/src/app/sso.json "$IAC_RED_TEAM_OUTPUT_FOLDER/sso.json"
-
-#[ -n "$IAC_RED_TEAM_OUTPUT_FOLDER/sso.json" ] && docker run -d --name red_team_proxy --network host $(docker build red_team -f red_team/proxy.Dockerfile -q) 

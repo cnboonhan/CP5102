@@ -24,10 +24,13 @@ class CP5102DnsResolverPlugin(HttpProxyBasePlugin):
         try:
             if host == self.sso.idp.domain:
                 logging.info(f"Intercepting DNS resolution to IDP: {host}")
-                return socket.getaddrinfo(self.red_team_phishing_domain, port, proto=socket.IPPROTO_TCP)[0][4][0], None
+                result = socket.getaddrinfo(self.red_team_phishing_domain, port, proto=socket.IPPROTO_TCP)[0][4][0], None
+                logging.debug(result)
+                return result
             else:
                 return socket.getaddrinfo(host, port, proto=socket.IPPROTO_TCP)[0][4][0], None
         except socket.gaierror:
+            logging.info(f"Resolution failed")
             # Ideally we can also thrown HttpRequestRejected or HttpProtocolException here
             # Returning None simply fallback to core generated exceptions.
             return None, None

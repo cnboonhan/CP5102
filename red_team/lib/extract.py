@@ -23,7 +23,7 @@ class IACExtractor:
         realms_config = extract_authenticator_keycloak_realms_config(
             self.all_non_hidden_files_in_iac_path)
         if realms_config:
-            # TODO: For now, just select the IDP with hardcoded 'oidc' for demo purposes
+            # TODO: For now, just select the IDP with hardcoded 'oidc' alias for demo purposes
             c = realms_config.idp_configs['oidc']
             sso.idp.userInfoUrl = c.userInfoUrl
             sso.idp.tokenUrl = c.tokenUrl

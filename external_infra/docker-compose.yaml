@@ -42,7 +42,7 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: keycloak
     dns:
-      - 172.28.0.4
+      - 172.28.0.53
 
   keycloak:
     depends_on:
@@ -69,7 +69,7 @@ services:
       KC_HTTPS_KEY_STORE_FILE: '/opt/keycloak/conf/keystore.p12'
       #KC_KEY_STORE_PASSWORD: 'password'
     dns:
-      - 172.28.0.4
+      - 172.28.0.53
     ports:
       - "8443:443"   # Allow idp keycloak to be accessible on $(minikube ip):8443
     command:
