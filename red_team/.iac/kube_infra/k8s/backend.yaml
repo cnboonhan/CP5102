@@ -1,0 +1,39 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gitea-svc
+spec:
+  ports:
+    - port: 80
+      targetPort: 3000
+      protocol: TCP
+      name: http
+  selector:
+    app: gitea
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitea
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitea
+  template:
+    metadata:
+      labels:
+        app: gitea
+    spec:
+      containers:
+        - name: gitea
+          image: cp5102/gitea:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: ROOT_URL
+              value: "https://cluster.cp5102.edu/gitea"
+            - name: GITEA__security__INSTALL_LOCK
+              value: "true"

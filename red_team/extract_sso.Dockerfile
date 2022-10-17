@@ -2,11 +2,9 @@ FROM python:3
 
 WORKDIR /usr/src/app
 
-COPY requirements.txt ./
+COPY extract-sso.requirements.txt ./requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
-RUN apt update
-RUN apt install graphviz -y
 
 COPY . .
 
-CMD [ "python", "main.py" ]
+CMD [ "python", "extract_sso.py" ]

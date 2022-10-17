@@ -1,0 +1,15 @@
+{
+    "idp": {
+        "userInfoUrl": "https://cp5102.edu/auth/realms/SSO/protocol/openid-connect/userinfo",
+        "tokenUrl": "https://cp5102.edu/auth/realms/SSO/protocol/openid-connect/token",
+        "jwksUrl": "https://cp5102.edu/auth/realms/SSO/protocol/openid-connect/certs",
+        "authorizationUrl": "https://cp5102.edu/auth/realms/SSO/protocol/openid-connect/auth",
+        "domain": "cp5102.edu",
+        "clientId": "cp5102"
+    },
+    "authenticator": {
+        "realm": "hello-world",
+        "domain": "https://cluster.cp5102.edu",
+        "authorizationUrl": "https://cluster.cp5102.edu/auth/realms/hello-world/protocol/openid-connect/auth"
+    }
+}

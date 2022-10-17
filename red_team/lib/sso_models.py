@@ -27,3 +27,17 @@ class SSOModel:
 
     def describe(self):
         return {'idp': self.idp.__dict__, 'authenticator': self.authenticator.__dict__}
+
+    def load_from_json(self, data):
+        try:
+            self.idp.userInfoUrl = data['idp']['userInfoUrl']
+            self.idp.tokenUrl = data['idp']['tokenUrl']
+            self.idp.jwksUrl = data['idp']['jwksUrl']
+            self.idp.authorizationUrl = data['idp']['authorizationUrl']
+            self.idp.domain = data['idp']['domain']
+            self.idp.clientId = data['idp']['clientId']
+            self.authenticator.realm = data['authenticator']['realm']
+            self.authenticator.domain = data['authenticator']['domain']
+            self.authenticator.authorizationUrl = data['authenticator']['authorizationUrl']
+        except Exception as e:
+            logging.critical(e)

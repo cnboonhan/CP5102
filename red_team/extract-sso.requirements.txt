@@ -1,6 +1,4 @@
 pyyaml
 graphviz
-mitmproxy
 jsonschema
 yamale
-proxy.py
