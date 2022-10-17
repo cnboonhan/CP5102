@@ -12,7 +12,7 @@ kubectl port-forward -n ingress-nginx services/ingress-nginx-controller 443:443 
 
 ## First Time Setup
 ```
-# configure external-infra/coredns-config/Corefile and kube-infra/k8s/coredns with DNS configurations
+# configure external_infra/coredns-config/Corefile and kube_infra/k8s/coredns with DNS configurations
 # Set up local /etc/systemd/resolved.conf with the following:
 [Resolve]
 DNS=172.28.0.53
@@ -35,9 +35,6 @@ docker exec -it keycloak-idp bash
 ## Create IDP Users
 /opt/keycloak/bin/kcadm.sh create users -r SSO -s username=user1 -s enabled=true
 /opt/keycloak/bin/kcadm.sh set-password -r SSO --username user1 --new-password password
-
-# Watch red-team container for credentials extraction
-docker logs red-team -f
 ```
 
 ## TearDown

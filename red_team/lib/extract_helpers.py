@@ -9,11 +9,12 @@ import yaml
 
 class AuthenticatorKeycloakRealmsInfo:
     class IDPConfigInfo:
-        def __init__(self, userInfoUrl: str, tokenUrl: str, jwksUrl: str, authorizationUrl: str):
+        def __init__(self, userInfoUrl: str, tokenUrl: str, jwksUrl: str, authorizationUrl: str, clientId: str):
             self.userInfoUrl = userInfoUrl
             self.tokenUrl = tokenUrl
             self.jwksUrl = jwksUrl
             self.authorizationUrl = authorizationUrl
+            self.clientId = clientId
 
     def __init__(self, iac_filepath: str):
         self.id = None
@@ -30,11 +31,11 @@ class AuthenticatorKeycloakRealmsInfo:
                 alias = idp['alias']
                 config = idp['config']
                 self._add_idp_config(
-                    alias, config['userInfoUrl'], config['tokenUrl'], config['jwksUrl'], config['authorizationUrl'])
+                    alias, config['userInfoUrl'], config['tokenUrl'], config['jwksUrl'], config['authorizationUrl'], config['clientId'])
 
-    def _add_idp_config(self, alias: str, userInfoUrl: str, tokenUrl: str, jwksUrl: str, authorizationUrl: str):
+    def _add_idp_config(self, alias: str, userInfoUrl: str, tokenUrl: str, jwksUrl: str, authorizationUrl: str, clientId: str):
         self.idp_configs[alias] = (self.IDPConfigInfo(
-            userInfoUrl, tokenUrl, jwksUrl, authorizationUrl))
+            userInfoUrl, tokenUrl, jwksUrl, authorizationUrl, clientId))
 
 
 class AuthenticatorKeycloakIngressInfo:

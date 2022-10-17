@@ -10,6 +10,7 @@ class IDP:
         self.jwksUrl = None              # type: str | None
         self.authorizationUrl = None     # type: str | None
         self.domain = None               # type: str | None
+        self.clientId = None              # type: str | None
 
 
 class Authenticator:

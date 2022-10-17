@@ -3,4 +3,5 @@
 *kubeconfig
 kics_scan_results/
 __pycache__/
-red_team/.tmp
+red-team/.iac/
+red-team/.out/

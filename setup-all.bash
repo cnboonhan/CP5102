@@ -21,7 +21,7 @@ KEYCLOAK_IDP_HOST="${KEYCLOAK_IDP_HOST:-cp5102.edu/auth}"
 [[ -n "$KICS_DOCKER_IMAGE_IS_PULLED" ]] || docker pull checkmarx/kics:latest
 [[ "$MINIKUBE_STATUS" == 'Running' ]] || ( minikube start --profile dev && minikube profile dev && minikube addons enable ingress && skaffold config set --global local-cluster true )
 
-cd "$SCRIPT_DIR/external-infra"
+cd "$SCRIPT_DIR/external_infra"
 docker-compose down
 docker-compose up --build -d
 
