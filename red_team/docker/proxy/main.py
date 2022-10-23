@@ -12,5 +12,5 @@ logging.basicConfig(format='%(asctime)s,%(msecs)d %(levelname)-8s [%(filename)s:
 
 
 if __name__ == '__main__':
-    with Proxy(['--plugins', 'lib.proxypy_dns_plugin.CP5102DnsResolverPlugin']):
+    with Proxy(['--plugins', 'lib.proxypy_dns_plugin.CP5102DnsResolverPlugin', '--hostname', '0.0.0.0']):
         sleep_loop()
