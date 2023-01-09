@@ -20,9 +20,9 @@ data:
           loop
           reload
           loadbalance
-          hosts custom.hosts cp5102.edu {
-            172.28.0.1   cp5102.edu
-            192.168.49.2 cluster.cp5102.edu
+          hosts custom.hosts example.com {
+            172.28.0.1   example.com
+            192.168.49.2 cluster.example.com
             fallthrough
           }
        }

@@ -29,11 +29,11 @@ spec:
     spec:
       containers:
         - name: gitea
-          image: cp5102/gitea:latest
+          image: example/gitea:latest
           ports:
             - containerPort: 80
           env:
             - name: ROOT_URL
-              value: "https://cluster.cp5102.edu/gitea"
+              value: "https://cluster.example.com/gitea"
             - name: GITEA__security__INSTALL_LOCK
               value: "true"

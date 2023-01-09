@@ -3,5 +3,5 @@
     errors
     auto
     reload 10s
-    hosts /etc/coredns/cp5102.edu.hosts cp5102.edu
+    hosts /etc/coredns/example.com.hosts example.com
 }

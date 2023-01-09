@@ -5,7 +5,7 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 ROOT_IS_CREATED="$(kubectl exec services/gitea-svc -- su - git -c '/usr/local/bin/gitea admin user list')"
 [[ "$ROOT_IS_CREATED" =~ "root" ]] || kubectl exec services/gitea-svc -- su - git -c "/usr/local/bin/gitea admin user create --admin --username root --password password --email admin@example.com" 
 OAUTH_IS_CREATED="$(kubectl exec services/gitea-svc -- su - git -c '/usr/local/bin/gitea admin auth list')"
-[[ "$OAUTH_IS_CREATED" =~ "gitea" ]] || kubectl exec services/gitea-svc -- su - git -c "/usr/local/bin/gitea admin auth add-oauth --name gitea --provider openidConnect -key gitea --secret 00000000-0000-0000-0000-000000000000 --auto-discover-url http://cluster.cp5102.edu/auth/realms/hello-world/.well-known/openid-configuration"
+[[ "$OAUTH_IS_CREATED" =~ "gitea" ]] || kubectl exec services/gitea-svc -- su - git -c "/usr/local/bin/gitea admin auth add-oauth --name gitea --provider openidConnect -key gitea --secret 00000000-0000-0000-0000-000000000000 --auto-discover-url http://cluster.example.com/auth/realms/hello-world/.well-known/openid-configuration"
 
 IAC_BLUE_TEAM_SOURCE_PATH="$SCRIPT_DIR/kube_infra"
 IAC_RED_TEAM_DEST_PATH="$SCRIPT_DIR/red_team/.iac"

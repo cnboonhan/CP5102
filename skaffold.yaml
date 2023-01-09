@@ -12,13 +12,13 @@ portForward:
 
 build:
   artifacts:
-  - image: cp5102/keycloak-broker
+  - image: example/keycloak-broker
     context: ./kube_infra/docker/keycloak
     docker:
       buildArgs:
         KEYCLOAK_IDP_HOST: '{{ .KEYCLOAK_IDP_HOST }}'
         MINIKUBE_INGRESS_HOST: '{{ .MINIKUBE_INGRESS_HOST }}'
-  - image: cp5102/gitea
+  - image: example/gitea
     context: ./kube_infra/docker/gitea
 
 deploy:

@@ -10,11 +10,11 @@ from proxy.common.types import HostPort
 from lib.sso_models import SSOModel
 
 
-class CP5102DnsResolverPlugin(HttpProxyBasePlugin):
+class ExampleDnsResolverPlugin(HttpProxyBasePlugin):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.sso_json_path = os.environ.get('SSO_JSON_PATH', '.out/sso.json')
-        self.red_team_phishing_domain = os.environ.get('RED_TEAM_PHISH_SERVER', 'attack.cp5102.edu')
+        self.red_team_phishing_domain = os.environ.get('RED_TEAM_PHISH_SERVER', 'attack.example.com')
         logging.debug(f"Loading SSO configuration from {self.sso_json_path}")
         self.sso = SSOModel()
         self.sso.load_from_json(json.load(open(self.sso_json_path)))

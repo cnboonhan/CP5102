@@ -1,4 +1,4 @@
-# CP5102
+# Red Team Automation Demo
 
 ## Dependencies
 ```
@@ -16,7 +16,7 @@ kubectl port-forward -n ingress-nginx services/ingress-nginx-controller 443:443 
 # Set up local /etc/systemd/resolved.conf with the following:
 [Resolve]
 DNS=172.28.0.53
-Domains=cp5102.edu,cluster.cp5102.edu
+Domains=example.com,cluster.example.com
 
 # Then run
 sudo service systemd-resolved restart
@@ -30,7 +30,7 @@ docker exec -it keycloak-idp bash
 
 ## Create IDP SSO Realm and Client
 /opt/keycloak/bin/kcadm.sh create realms -s realm=SSO -s enabled=true -o
-/opt/keycloak/bin/kcadm.sh create clients -r SSO -s clientId=cp5102 -s 'redirectUris=["*"]' -s directAccessGrantsEnabled=true -s publicClient=false -s clientAuthenticatorType=client-secret -s secret=00000000-0000-0000-0000-000000000000
+/opt/keycloak/bin/kcadm.sh create clients -r SSO -s clientId=example -s 'redirectUris=["*"]' -s directAccessGrantsEnabled=true -s publicClient=false -s clientAuthenticatorType=client-secret -s secret=00000000-0000-0000-0000-000000000000
 
 ## Create IDP Users
 /opt/keycloak/bin/kcadm.sh create users -r SSO -s username=user1 -s enabled=true

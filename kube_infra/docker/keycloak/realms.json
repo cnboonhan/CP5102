@@ -678,12 +678,12 @@
       "clientAuthenticatorType": "client-secret",
       "secret": "00000000-0000-0000-0000-000000000000",
       "redirectUris": [
-        "https://cluster.cp5102.edu/gitea/*",
-        "http://cluster.cp5102.edu/gitea/*"
+        "https://cluster.example.com/gitea/*",
+        "http://cluster.example.com/gitea/*"
       ],
       "webOrigins": [
-        "https://cluster.cp5102.edu",
-        "http://cluster.cp5102.edu"
+        "https://cluster.example.com",
+        "http://cluster.example.com"
       ],
       "notBefore": 0,
       "bearerOnly": false,
@@ -1428,22 +1428,22 @@
       "firstBrokerLoginFlowAlias": "first broker login",
       "config": {
         "hideOnLoginPage": "false",
-        "userInfoUrl": "https://cp5102.edu/auth/realms/SSO/protocol/openid-connect/userinfo",
+        "userInfoUrl": "https://example.com/auth/realms/SSO/protocol/openid-connect/userinfo",
         "validateSignature": "true",
         "acceptsPromptNoneForwardFromClient": "false",
-        "clientId": "cp5102",
-        "tokenUrl": "https://cp5102.edu/auth/realms/SSO/protocol/openid-connect/token",
+        "clientId": "example",
+        "tokenUrl": "https://example.com/auth/realms/SSO/protocol/openid-connect/token",
         "uiLocales": "false",
-        "jwksUrl": "https://cp5102.edu/auth/realms/SSO/protocol/openid-connect/certs",
+        "jwksUrl": "https://example.com/auth/realms/SSO/protocol/openid-connect/certs",
         "clientAuthentications": "private_key_jwt",
         "backchannelSupported": "false",
-        "issuer": "https://cp5102.edu/auth/realms/SSO",
+        "issuer": "https://example.com/auth/realms/SSO",
         "useJwksUrl": "true",
         "loginHint": "false",
         "pkceEnabled": "false",
-        "authorizationUrl": "https://cp5102.edu/auth/realms/SSO/protocol/openid-connect/auth",
+        "authorizationUrl": "https://example.com/auth/realms/SSO/protocol/openid-connect/auth",
         "disableUserInfo": "false",
-        "logoutUrl": "https://cp5102.edu/auth/realms/SSO/protocol/openid-connect/logout",
+        "logoutUrl": "https://example.com/auth/realms/SSO/protocol/openid-connect/logout",
         "syncMode": "IMPORT",
         "clientSecret": "00000000-0000-0000-0000-000000000000",
         "allowedClockSkew": "0",
