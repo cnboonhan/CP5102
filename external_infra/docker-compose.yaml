@@ -3,6 +3,13 @@ volumes:
     driver: local
 
 services:
+  proxy:
+    build: 
+        context: .
+        dockerfile: docker/proxy/Dockerfile
+    container_name: infra_proxy
+    network_mode: host
+
   ingress:
     image: nginx:alpine
     container_name: nginx-ingress 
